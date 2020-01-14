@@ -28,6 +28,7 @@ the code.
 are sampled out of from simplemaps dataset  https://simplemaps.com/data/us-zips according to 
 the population numbers.
 
+## Email duplicates
 Since there are popular names, surnames and email providers there is a high chance of email 
 duplicates: you may easily get 2 or more elizabeth.smith@gmail.com in 10k population. Because 
 email is a good candidate to be a unique key in the database there is a code block at the end 
