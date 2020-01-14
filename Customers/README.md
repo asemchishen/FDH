@@ -1,3 +1,5 @@
+# Customer/people data generator
+
 Real human personal data is protected by legislation almost everywhere around the world. 
 That is why it is so useful to be able to generate fake human data for test/dev purposes. 
 Here is a brief description of customers' data features and rationale behind generator logic:
