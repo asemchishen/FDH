@@ -9,3 +9,4 @@ To overcome this issue I decided to start a little project - Fake Data Hub. The 
 ## Contents
 
 1. Customers folder contains support datasets and generator code to produce people demographic and personal data. Also readydata subfolder contains generated ready-to-use data in .csv format. 
+2. Products folder contains support datasets and generator code to produce retail product data (partnumber, prod. categories, name, price etc). Also readydata subfolder contains generated ready-to-use product data in .csv format. 
