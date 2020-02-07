@@ -22,7 +22,7 @@ cust_id <- cust_id[,1]
 casedata<-NULL
 
 ## PARAMETERS OF BUYERS LOGIC
-obs_number<-500      ##number of observations to generate
+obs_number<-1500      ##number of observations to generate
 baseline_prob<-0.1   ##baseline prob of customer to buy
 peak_age<-40         ##max prob multiplier at this age
 age_mult<-2          ##age max prob multiplier
@@ -32,8 +32,10 @@ lng_min_mult<-0.5    ##Geo longitude min prob multiplier
 lat_max_mult<-2      ##Geo latitude max prob multiplier
 lat_min_mult<-0.5    ##Geo latitude min prob multiplier
 
-for (i in 1:obs_number) {
-        rownum<-sample(cust_id, 1) ## sampling random customer
+
+observations<-sample(cust_id, obs_number, replace = FALSE) ## sampling customers WO replacement
+for (i in 1:length(observations)) {
+        rownum<-observations[i] ## customer from a list
         rs <- dbSendQuery(con, paste0("select * from customers where cust_id=",rownum))
         data<-fetch(rs) ## getting customer details
         ## fetching features
@@ -77,6 +79,10 @@ for (i in 1:obs_number) {
         dec<-as.data.frame(cbind(rownum,dec1))
         dbWriteTable(con, "INS_SALES", dec, row.names = FALSE, overwrite = FALSE,
                      append = TRUE, ora.number = TRUE, schema = NULL, date = TRUE)
+        ## this is a force reconnect for each 450 rows to overcome open coursor issues
+        if (i%%450==0) {
+        con <- dbConnect(drv, username =con_file$user, password=con_file$pass,dbname = con_file$con_string)
+        }
 }
 
 
